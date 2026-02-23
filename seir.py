@@ -2,53 +2,41 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-def main():
-    # Check if URL is provided
-    if len(sys.argv) != 2:
-        print("Usage: python web_fetch.py <URL>")
-        sys.exit(1)
+# Check if URL is provided
+if len(sys.argv) != 2:
+    print("Usage: python seir.py <URL>")
+    sys.exit()
 
-    url = sys.argv[1]
+url = sys.argv[1]
+header={'User-Agent': 'Mozilla/5.0'}
+# Get webpage
+try:
+    response = requests.get(url,headers=header)
 
-    try:
-        # Fetch the webpage
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        print("Error fetching the URL:", e)
-        sys.exit(1)
+except:
+    print("Error fetching the URL")
+    sys.exit()
 
-    # Parse HTML
-    soup = BeautifulSoup(response.text, "html.parser")
+# Parse HTML
+soup = BeautifulSoup(response.text, "html.parser")
 
-    # -------- PAGE TITLE --------
-    print("PAGE TITLE:")
-    if soup.title and soup.title.string:
-        print(soup.title.string.strip())
-    else:
-        print("No title found")
+# -------- Title --------
+if soup.title:
+    print("Title page : \n",soup.title.text)
+else:
+    print("No Title")
 
-    # -------- PAGE BODY TEXT --------
-    print("\nPAGE BODY:")
-    body = soup.body
-    if body:
-        text = body.get_text(separator="\n", strip=True)
-        print(text)
-    else:
-        print("No body content found")
+# -------- Body --------
+if soup.body:
+    print("Body page : \n",soup.body.get_text())
+else:
+    print("No Body")
 
-    # -------- LINKS --------
-    print("\nLINKS:")
-    links_found = False
-    for link in soup.find_all("a"):
-        href = link.get("href")
-        if href:
-            print(href)
-            links_found = True
+# Links
+print("ALL Links : \n")
+for link in soup.find_all("a"):
+    href = link.get("href")
+    if href:
+        print(href)
 
-    if not links_found:
-        print("No links found on this page")
 
-if __name__ == "__main__":
-    main()
-## this is my assignment of seir 
