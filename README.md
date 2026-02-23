@@ -44,7 +44,7 @@ This project represents my hands-on practice after completing the learning phase
 ##  How It Works
 
 1. Takes a URL from command line argument.
-2. Sends HTTP GET request using `requests`.
+2. Sends HTTP GET request using requests.
 3. Adds a custom User-Agent header to avoid blocking.
 4. Parses HTML using BeautifulSoup.
 5. Extracts:
