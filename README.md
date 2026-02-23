@@ -48,6 +48,6 @@ This project represents my hands-on practice after completing the learning phase
 3. Adds a custom User-Agent header to avoid blocking.
 4. Parses HTML using BeautifulSoup.
 5. Extracts:
-   - `<title>` tag content
-   - `<body>` text
-   - All `<a>` tag links
+   - <title> tag content
+   - <body> text
+   - All <a> tag links
