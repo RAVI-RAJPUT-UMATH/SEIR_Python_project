@@ -9,6 +9,7 @@ if len(sys.argv) != 2:
 
 url = sys.argv[1]
 header={'User-Agent': 'Mozilla/5.0'}
+
 # Get webpage
 try:
     response = requests.get(url,headers=header)
@@ -20,23 +21,27 @@ except:
 # Parse HTML
 soup = BeautifulSoup(response.text, "html.parser")
 
-# -------- Title --------
+# Title
 if soup.title:
-    print("Title page : \n",soup.title.text)
+    print("Title page : \n",soup.title.text,"\n")
 else:
     print("No Title")
 
-# -------- Body --------
+# Body
 if soup.body:
-    print("Body page : \n",soup.body.get_text())
+    body=soup.body.get_text(separator=" ",strip=True)
+    print("Body page :\n",body,"\n")
+
 else:
     print("No Body")
 
 # Links
 print("ALL Links : \n")
+links=[]
 for link in soup.find_all("a"):
     href = link.get("href")
     if href:
-        print(href)
+        links.append(href)
+print(" ".join(links))
 
 
