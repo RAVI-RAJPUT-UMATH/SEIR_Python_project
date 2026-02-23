@@ -23,25 +23,23 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 # Title
 if soup.title:
-    print("Title page : \n",soup.title.text,"\n")
+    print("Title page :",soup.title.text,)
 else:
     print("No Title")
 
 # Body
 if soup.body:
     body=soup.body.get_text(separator=" ",strip=True)
-    print("Body page :\n",body,"\n")
+    print("Body page :",body)
 
 else:
     print("No Body")
 
 # Links
-print("ALL Links : \n")
+print("ALL Links :")
 links=[]
 for link in soup.find_all("a"):
     href = link.get("href")
     if href:
         links.append(href)
 print(" ".join(links))
-
-
